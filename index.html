@@ -1,0 +1,375 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Lerntheke Deutsch 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Fredoka:wght@500;600;700&display=swap">
+<style>
+/* Layout: Stationsleiste oben (wie Fächer einer Lerntheke), darunter Aufgabenkarten wie Karteikarten */
+:root{
+  --bg:#f3f6f1;        /* helles Salbei-Papier */
+  --card:#ffffff;
+  --ink:#24332f;
+  --muted:#5d6e68;
+  --line:#c9d6cf;
+  --teal:#2f7f7a;      /* Akzent */
+  --mustard:#e2a93b;
+  --coral:#e06d58;
+  --nomen:#2f6fc1; --nomen-bg:#dbe8fb;
+  --verb:#c8433a;  --verb-bg:#fbe0dc;
+  --adj:#3d8a3f;   --adj-bg:#dcf1d9;
+  --ok:#2e8b4e; --ok-bg:#dff3e5;
+  --bad:#c0392b; --bad-bg:#fbe3df;
+  --font-display:"Fredoka","Trebuchet MS",system-ui,sans-serif;
+  --font-body:"Andika","Verdana",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#18211f;--card:#212d2a;--ink:#e6efe9;--muted:#a3b5ad;--line:#38504a;--teal:#5cb8b0;--mustard:#f0bf5c;--coral:#f08a76;
+  --nomen:#7fb0ef;--nomen-bg:#20344f;--verb:#f08b80;--verb-bg:#4a2723;--adj:#86cf87;--adj-bg:#22402a;
+  --ok:#6fd08e;--ok-bg:#1f3c2a;--bad:#f2867a;--bad-bg:#4a2521;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#18211f;--card:#212d2a;--ink:#e6efe9;--muted:#a3b5ad;--line:#38504a;--teal:#5cb8b0;--mustard:#f0bf5c;--coral:#f08a76;
+  --nomen:#7fb0ef;--nomen-bg:#20344f;--verb:#f08b80;--verb-bg:#4a2723;--adj:#86cf87;--adj-bg:#22402a;
+  --ok:#6fd08e;--ok-bg:#1f3c2a;--bad:#f2867a;--bad-bg:#4a2521;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:1.12rem;line-height:1.55}
+.wrap{max-width:900px;margin:0 auto;padding-inline:16px;padding-block:20px 60px}
+header{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+header svg{flex:none}
+h1{font-family:var(--font-display);font-weight:700;font-size:clamp(1.6rem,4vw,2.3rem);margin:0;line-height:1.1;text-wrap:balance}
+.sub{color:var(--muted);margin:2px 0 0}
+.stations{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 6px}
+.st{font-family:var(--font-display);font-weight:600;font-size:1rem;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:7px 14px;cursor:pointer}
+.st[aria-pressed="true"]{background:var(--teal);border-color:var(--teal);color:var(--card)}
+.st:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--mustard);outline-offset:2px}
+.stnote{color:var(--muted);font-size:.95rem;margin:4px 0 16px}
+.task{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:18px;margin-bottom:18px}
+.task h2{font-family:var(--font-display);font-weight:600;font-size:1.3rem;margin:0 0 4px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.lvl{font-size:.85rem;border-radius:6px;padding:2px 8px;font-weight:600;letter-spacing:.02em}
+.lvl.l1{background:var(--ok-bg);color:var(--ok)}
+.lvl.l2{background:var(--nomen-bg);color:var(--nomen)}
+.done{font-size:.9rem;color:var(--ok);font-weight:700}
+.instr{margin:0 0 12px}
+.text{line-height:2.4;font-size:1.2rem}
+.w{display:inline-block;padding:0 5px;border-radius:6px;cursor:pointer;border:2px solid transparent;user-select:none}
+.w:hover{border-color:var(--line)}
+.w.m{background:var(--mustard);color:#24332f}
+.w.N{background:var(--nomen-bg);color:var(--nomen);font-weight:700}
+.w.V{background:var(--verb-bg);color:var(--verb);font-weight:700}
+.w.A{background:var(--adj-bg);color:var(--adj);font-weight:700}
+.w.right{border-color:var(--ok)}
+.w.wrong{border-color:var(--bad);text-decoration:line-through}
+.w.miss{border:2px dashed var(--bad)}
+.legend{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;font-size:.95rem}
+.legend span{padding:2px 10px;border-radius:6px;font-weight:700}
+.items{display:grid;gap:10px}
+.item{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:8px 10px;border-radius:10px;border:2px solid transparent}
+.item .q{flex:1 1 220px;min-width:0}
+.opts{display:flex;gap:6px;flex-wrap:wrap}
+.opt{font-family:var(--font-body);font-size:1.05rem;border:2px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:5px 12px;cursor:pointer;min-width:44px}
+.opt[aria-pressed="true"]{background:var(--teal);color:var(--card);border-color:var(--teal)}
+.item.right{background:var(--ok-bg);border-color:var(--ok)}
+.item.wrong{background:var(--bad-bg);border-color:var(--bad)}
+.sol{font-size:.95rem;color:var(--bad);width:100%}
+input.gap{font-family:var(--font-body);font-size:1.05rem;border:none;border-bottom:2px solid var(--muted);background:transparent;color:var(--ink);width:9.5em;max-width:100%;padding:2px 4px}
+.pool{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.chosen{display:flex;flex-wrap:wrap;gap:8px;min-height:48px;border:2px dashed var(--line);border-radius:10px;padding:8px}
+.chip{font-family:var(--font-body);font-size:1.05rem;border:2px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:5px 12px;cursor:pointer}
+.chip.right{background:var(--ok-bg);border-color:var(--ok)}
+.chip.wrong{background:var(--bad-bg);border-color:var(--bad)}
+.bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.btn{font-family:var(--font-display);font-weight:600;font-size:1.05rem;border:none;border-radius:10px;padding:9px 18px;cursor:pointer;background:var(--teal);color:var(--card)}
+.btn.sec{background:transparent;color:var(--teal);border:2px solid var(--teal)}
+.result{font-weight:700}
+.result.good{color:var(--ok)} .result.meh{color:var(--coral)}
+.hint{background:var(--bg);border-left:4px solid var(--mustard);padding:8px 12px;border-radius:0 8px 8px 0;font-size:.98rem;margin:0 0 12px}
+footer{color:var(--muted);font-size:.9rem;margin-top:24px}
+.progress{font-weight:700;color:var(--teal);margin:0 0 14px}
+.task.locked{background:var(--bg);border-style:dashed}
+.task.locked h2{color:var(--muted)}
+.lockmsg{display:flex;gap:10px;align-items:center;margin:4px 0 0;color:var(--muted)}
+.lockmsg svg{flex:none}
+.unlock{font-weight:700;color:var(--ok);margin:12px 0 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+@media (prefers-reduced-motion:no-preference){.task{transition:border-color .2s}}
+</style>
+
+<div class="wrap">
+<header>
+  <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true">
+    <rect x="8" y="14" width="48" height="38" rx="6" fill="var(--mustard)"/>
+    <rect x="12" y="10" width="40" height="38" rx="5" fill="var(--card)" stroke="var(--ink)" stroke-width="2.5"/>
+    <path d="M18 22h28M18 30h22M18 38h16" stroke="var(--teal)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M44 42l10-16 4 3-10 16-5 2z" fill="var(--coral)" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+  </svg>
+  <div>
+    <h1>Lerntheke Deutsch 5 – digital</h1>
+    <p class="sub">Wähle deine Station. Erst die ★ Basis-Übungen schaffen, dann gehen die ★★ Profi-Übungen auf. Erst auf Papier, dann hier üben!</p>
+  </div>
+</header>
+<nav class="stations" id="stations" aria-label="Stationen"></nav>
+<p class="stnote" id="stnote"></p>
+<main id="tasks"></main>
+<footer>Tipp: „Prüfen“ zeigt dir, was richtig ist. Ab 80 % richtig ist eine Übung geschafft. Bei Fehlern: „Nochmal“ drücken und neu versuchen. Trage dein Ergebnis auf deinem Laufzettel ein.</footer>
+</div>
+
+<script>
+const STATIONS=[
+ {id:"s1",name:"1 Nomen",note:"Station 1: Nomen und Artikel"},
+ {id:"s2",name:"2 Verben",note:"Station 2: Verben und Zeitformen"},
+ {id:"s3",name:"3 Adjektive",note:"Station 3: Adjektive"},
+ {id:"s4",name:"4 Detektiv",note:"Station 4: Wortarten-Detektiv"},
+ {id:"s5",name:"5 Rechtschreibung",note:"Station 5: Silben und Großschreibung"},
+ {id:"s6",name:"6 Lesen",note:"Station 6: Lesen – Der verschwundene Turnbeutel (Text liegt auf Papier!)"},
+ {id:"s7",name:"7 Satzzeichen",note:"Station 7: Satzzeichen (Wahl)"},
+ {id:"s8",name:"8 ABC",note:"Station 8: ABC (Wahl)"}
+];
+const TASKS=[
+ /* Station 1 */
+ {st:"s1",id:"D1a",lvl:1,title:"Nomen finden",type:"klick",target:"N",
+  instr:"Tippe alle Nomen an. Tipp: Kannst du der, die oder das davor setzen?",
+  text:"{hund|N} laufen {tisch|N} schön {mama|N} lesen {baum|N} groß {schule|N} rot {apfel|N} springen {freund|N} leise"},
+ {st:"s1",id:"D1b",lvl:1,title:"Einzahl und Mehrzahl",type:"zuordnen",
+  instr:"Wähle die richtige Mehrzahl.",
+  items:[["der Hund – die …","Hunde",["Hunde","Hunds","Hunden"]],["das Buch – die …","Bücher",["Buchs","Bücher","Buche"]],["die Katze – die …","Katzen",["Katzes","Kätze","Katzen"]],["der Baum – die …","Bäume",["Baumen","Bäume","Baums"]],["das Kind – die …","Kinder",["Kinde","Kinds","Kinder"]],["der Ball – die …","Bälle",["Bälle","Balls","Baller"]]]},
+ {st:"s1",id:"D1c",lvl:2,title:"der, die oder das?",type:"zuordnen",opts:["der","die","das"],
+  instr:"Wähle den richtigen Artikel.",
+  items:[["Sofa","das"],["Nudel","die"],["Käse","der"],["Handy","das"],["Butter","die"],["Teller","der"],["Fitness","die"],["Monat","der"],["Fenster","das"],["Sonne","die"]]},
+ {st:"s1",id:"D1d",lvl:2,title:"Anfassen oder nicht?",type:"zuordnen",opts:["kann man anfassen","kann man nicht anfassen"],
+  instr:"Manche Nomen kann man anfassen, andere sind Gefühle oder Gedanken. Ordne zu.",
+  items:[["Hoffnung","kann man nicht anfassen"],["Stuhl","kann man anfassen"],["Ärger","kann man nicht anfassen"],["Schere","kann man anfassen"],["Liebe","kann man nicht anfassen"],["Banane","kann man anfassen"],["Langeweile","kann man nicht anfassen"],["Fenster","kann man anfassen"]]},
+ /* Station 2 */
+ {st:"s2",id:"D2a",lvl:1,title:"Welche Verbform passt?",type:"zuordnen",
+  instr:"Wähle die richtige Form.",
+  items:[["Du ___ Fußball.","spielst",["spielst","spielt","spielen"]],["Wir ___ ein Lied.","singen",["singt","singen","singst"]],["Er ___ schnell.","läuft",["laufen","läufst","läuft"]],["Ich ___ ein Bild.","male",["male","malt","malen"]],["Ihr ___ Pizza.","esst",["essen","esst","isst"]],["Sie ___ ein Buch. (eine Person)","liest",["lest","lesen","liest"]]]},
+ {st:"s2",id:"D2b",lvl:1,title:"Was war gestern?",type:"zuordnen",
+  instr:"Wähle die Form im Präteritum.",
+  items:[["ich lache → ich …","lachte",["lacht","lachte","gelacht"]],["er spielt → er …","spielte",["spielten","spielt","spielte"]],["wir gehen → wir …","gingen",["gehten","gingen","ging"]],["sie isst → sie …","aß",["aß","esste","isste"]],["du malst → du …","maltest",["malte","maltest","malst"]],["ich schreibe → ich …","schrieb",["schreibte","schriebe","schrieb"]]]},
+ {st:"s2",id:"D2c",lvl:2,title:"Welche Zeitform?",type:"zuordnen",opts:["Präsens","Präteritum","Perfekt"],
+  instr:"Bestimme die Zeitform.",
+  items:[["Ich spiele Fußball.","Präsens"],["Ich spielte Fußball.","Präteritum"],["Ich habe Fußball gespielt.","Perfekt"],["Lena ging nach Hause.","Präteritum"],["Wir sind gerannt.","Perfekt"],["Der Hund bellt.","Präsens"],["Tim sah einen Vogel.","Präteritum"],["Du hast gelacht.","Perfekt"]]},
+ {st:"s2",id:"D2d",lvl:2,title:"Perfekt: haben oder sein?",type:"luecke",
+  instr:"Schreibe die richtige Form von haben oder sein in die Lücke.",
+  items:[["Wir ___ ins Kino gegangen.",["sind"]],["Du ___ ein Bild gemalt.",["hast"]],["Lena ___ nach Hause gefahren.",["ist"]],["Ihr ___ laut gelacht.",["habt"]],["Ich ___ eingeschlafen.",["bin"]],["Die Kinder ___ Fußball gespielt.",["haben"]]]},
+ /* Station 3 */
+ {st:"s3",id:"D3a",lvl:1,title:"Gegenteile",type:"zuordnen",
+  instr:"Finde das Gegenteil.",
+  items:[["groß","klein",["klein","lang","dick"]],["heiß","kalt",["warm","kalt","nass"]],["schnell","langsam",["leise","langsam","müde"]],["hell","dunkel",["dunkel","schwer","bunt"]],["laut","leise",["still","leise","schön"]],["alt","jung",["jung","groß","froh"]]]},
+ {st:"s3",id:"D3b",lvl:1,title:"Adjektive finden",type:"klick",target:"A",
+  instr:"Tippe alle Adjektive an. Tipp: Adjektive sagen, wie etwas ist.",
+  text:"{bunt|A} Haus {süß|A} lachen {weich|A} Kissen {kalt|A} rennen {lustig|A} Ball {müde|A} spielen"},
+ {st:"s3",id:"D3c",lvl:2,title:"Adjektive steigern",type:"luecke",
+  instr:"Schreibe die fehlende Form. Achte auf Umlaute (ä, ö, ü)!",
+  items:[["klein – kleiner – am ___",["kleinsten"]],["alt – ___ – am ältesten",["älter"]],["gut – ___ – am besten",["besser"]],["hoch – höher – am ___",["höchsten"]],["viel – ___ – am meisten",["mehr"]],["warm – ___ – am wärmsten",["wärmer"]]]},
+ {st:"s3",id:"D3d",lvl:2,title:"Vergleiche",type:"luecke",
+  instr:"Setze das Adjektiv in der richtigen Form ein.",
+  items:[["Ein Auto ist ___ als ein Fahrrad. (schnell)",["schneller"]],["Der Mount Everest ist der ___ Berg der Welt. (hoch)",["höchste"]],["Meine Schwester ist so ___ wie ich. (alt)",["alt"]],["Im Sommer ist es ___ als im Winter. (warm)",["wärmer"]],["Pizza schmeckt mir ___ als Salat. (gut)",["besser"]]]},
+ /* Station 4 */
+ {st:"s4",id:"D4a",lvl:1,title:"Wortarten färben",type:"farben",
+  instr:"Tippe ein Wort an: 1× = Nomen (blau), 2× = Verb (rot), 3× = Adjektiv (grün), 4× = weg.",
+  text:"Der {kleine|A} {Hund|N} {rennt|V} in den {Garten|N}. Dort {liegt|V} ein {roter|A} {Ball|N}. Der {Hund|N} {bellt|V} {laut|A}."},
+ {st:"s4",id:"D4b",lvl:1,title:"Wortarten-Sortiermaschine",type:"zuordnen",opts:["Nomen","Verb","Adjektiv"],
+  instr:"Welche Wortart ist das?",
+  items:[["Fenster","Nomen"],["springen","Verb"],["leise","Adjektiv"],["Lehrerin","Nomen"],["essen","Verb"],["bunt","Adjektiv"],["Fahrrad","Nomen"],["kalt","Adjektiv"],["schreiben","Verb"]]},
+ {st:"s4",id:"D4c",lvl:2,title:"Wortarten färben – Profi",type:"farben",
+  instr:"Achtung: alles ist kleingeschrieben! 1× = Nomen, 2× = Verb, 3× = Adjektiv, 4× = weg.",
+  text:"an einem {kalten|A} {morgen|N} {fährt|V} {mia|N} mit dem {bus|N} zur {schule|N}. der {bus|N} {ist|V} {voll|A} und {laut|A}. {mia|N} {liest|V} ein {spannendes|A} {buch|N}. dann {hält|V} der {fahrer|N} an."},
+ {st:"s4",id:"D4d",lvl:2,title:"Der neugierige Kater",type:"farben",
+  instr:"Noch ein Profi-Text! 1× = Nomen, 2× = Verb, 3× = Adjektiv, 4× = weg.",
+  text:"der {neugierige|A} {kater|N} {sitzt|V} auf der {warmen|A} {fensterbank|N}. draußen {fliegt|V} ein {bunter|A} {vogel|N} vorbei. sofort {springt|V} der {kater|N} auf."},
+ /* Station 5 */
+ {st:"s5",id:"D5a",lvl:1,title:"Silben zählen",type:"zuordnen",opts:["1","2","3","4","5"],
+  instr:"Schwinge das Wort und zähle die Silben.",
+  items:[["Hund","1"],["Tafel","2"],["Banane","3"],["Schokolade","4"],["Kaninchen","3"],["Rose","2"],["Lokomotive","5"]]},
+ {st:"s5",id:"D5b",lvl:1,title:"Groß oder klein?",type:"zuordnen",opts:["groß","klein"],
+  instr:"Schreibt man das Wort groß oder klein? Tipp: Nomen und Namen schreibt man groß.",
+  items:[["hund","groß"],["laufen","klein"],["schule","groß"],["rot","klein"],["berlin","groß"],["lesen","klein"],["freund","groß"],["schnell","klein"]]},
+ {st:"s5",id:"D5c",lvl:2,title:"Was schreibt man groß?",type:"klick",target:"G",cap:true,
+  instr:"Tippe alle Wörter an, die man großschreibt (Satzanfang, Nomen, Namen).",
+  text:"{am|G} {wochenende|G} fährt {familie|G} {berger|G} an den {see|G}. {die|G} {kinder|G} baden im kalten {wasser|G}. {danach|G} essen alle ein großes {eis|G}."},
+ {st:"s5",id:"D5d",lvl:2,title:"Doppelte Mitlaute",type:"luecke",
+  instr:"Welche zwei Buchstaben fehlen? Schreibe nur die zwei Buchstaben.",
+  items:[["die Pu___e (Spielzeug)",["pp"]],["das Schi___ (fährt auf dem Meer)",["ff"]],["die Mu___er (Mama)",["tt"]],["die So___e (scheint am Himmel)",["nn"]],["die Bri___e (für die Augen)",["ll"]],["der Lö___el (zum Essen)",["ff"]]]},
+ /* Station 6 */
+ {st:"s6",id:"D6a",lvl:1,title:"Lesequiz",type:"zuordnen",
+  instr:"Lies zuerst den Text auf deinem Blatt. Dann beantworte die Fragen.",
+  items:[["Wann hat die Klasse Sport?","am Montag",["am Montag","am Freitag","am Mittwoch"]],["Was sucht Emil?","seinen Turnbeutel",["seine Jacke","seinen Turnbeutel","sein Heft"]],["Wer hilft Emil?","Ayla",["Herr Kaya","Ayla","seine Mama"]],["Wo liegt der Turnbeutel?","im Musikraum",["im Schrank","im Musikraum","in der Turnhalle"]],["Wie fühlt sich Emil am Ende?","erleichtert",["wütend","traurig","erleichtert"]]]},
+ {st:"s6",id:"D6b",lvl:1,title:"Wer macht was?",type:"zuordnen",opts:["Emil","Ayla"],
+  instr:"Wer macht das in der Geschichte?",
+  items:[["sucht seinen Turnbeutel","Emil"],["hilft beim Suchen","Ayla"],["hat eine Idee","Ayla"],["nickt","Emil"],["ist erleichtert","Emil"],["fragt: „Warst du am Freitag im Musikraum?“","Ayla"]]},
+ {st:"s6",id:"D6c",lvl:2,title:"Lesequiz Profi",type:"zuordnen",
+  instr:"Lies zuerst den langen Text auf deinem Blatt. Dann beantworte die Fragen.",
+  items:[["Warum wird Emil nervös?","Herr Kaya ist streng, wenn jemand ohne Sportsachen kommt.",["Er hat den Bus verpasst.","Herr Kaya ist streng, wenn jemand ohne Sportsachen kommt.","Ayla lacht ihn aus."]],["Was hatte Emil am Freitag?","Band-AG",["Fußball-AG","Band-AG","Kunst-AG"]],["Warum hat Emil so schnell gepackt?","Sein Bus ist gekommen.",["Er hatte Hunger.","Sein Bus ist gekommen.","Es hat geklingelt."]],["Woran merkt man, dass Emil aufgeregt ist?","Sein Herz klopft schneller.",["Er singt ein Lied.","Sein Herz klopft schneller.","Er schläft ein."]],["Wie nennt Emil Ayla am Ende?","beste Detektivin der Schule",["beste Sportlerin","beste Detektivin der Schule","beste Musikerin"]]]},
+ {st:"s6",id:"D6d",lvl:2,title:"Gefühle im Text",type:"zuordnen",opts:["aufgeregt","ratlos","erleichtert","froh"],
+  instr:"Wie fühlt sich die Person in diesem Moment?",
+  items:[["„Sein Herz klopft schneller.“","aufgeregt"],["„Nur Emil steht ratlos da.“","ratlos"],["„Emil atmet tief aus.“","erleichtert"],["„Ayla grinst.“","froh"]]},
+ /* Station 7 */
+ {st:"s7",id:"D7a",lvl:1,title:"Punkt, Fragezeichen oder Ausrufezeichen?",type:"zuordnen",opts:[".","?","!"],
+  instr:"Welches Satzzeichen fehlt?",
+  items:[["Wie heißt du","?"],["Ich heiße Lara","."],["Pass auf","!"],["Kommst du mit","?"],["Heute ist es kalt","."],["Hilfe","!"],["Wo wohnst du","?"],["Mein Hund ist braun","."]]},
+ {st:"s7",id:"D7b",lvl:2,title:"Welche Satzart?",type:"zuordnen",opts:["Aussage","Frage","Ausruf"],
+  instr:"Bestimme die Satzart. Die Satzzeichen fehlen absichtlich!",
+  items:[["Wann beginnt der Film","Frage"],["Mach sofort das Fenster zu","Ausruf"],["Der Film beginnt um acht Uhr","Aussage"],["Hast du Popcorn gekauft","Frage"],["Vorsicht, heiß","Ausruf"],["Wir sitzen in der dritten Reihe","Aussage"]]},
+ {st:"s7",id:"D7c",lvl:2,title:"Das passende Fragewort",type:"zuordnen",opts:["Wer","Wo","Wann","Warum","Wie"],
+  instr:"Welches Fragewort passt zur Antwort?",
+  items:[["… heißt du? – Ich heiße Ben.","Wie"],["… kommst du nach Hause? – Um drei Uhr.","Wann"],["… weinst du? – Weil ich hingefallen bin.","Warum"],["… ist das? – Das ist mein Bruder.","Wer"],["… wohnst du? – In der Bergstraße.","Wo"],["… alt bist du? – Ich bin elf.","Wie"]]},
+ /* Station 8 */
+ {st:"s8",id:"D8a",lvl:1,title:"ABC – nach dem 1. Buchstaben",type:"ordnen",
+  instr:"Tippe die Wörter in der richtigen ABC-Reihenfolge an.",
+  words:["Apfel","Elefant","Hund","Kuchen","Maus","Zebra"]},
+ {st:"s8",id:"D8b",lvl:1,title:"Nachbarbuchstaben",type:"zuordnen",
+  instr:"Welcher Buchstabe ist gemeint?",
+  items:[["Was kommt nach F?","G",["E","G","H"]],["Was kommt vor M?","L",["L","N","K"]],["Was kommt nach R?","S",["Q","T","S"]],["Was kommt vor D?","C",["B","C","E"]],["Was kommt nach T?","U",["U","S","V"]],["Was kommt vor P?","O",["Q","N","O"]]]},
+ {st:"s8",id:"D8c",lvl:2,title:"ABC – nach dem 2. und 3. Buchstaben",type:"ordnen",
+  instr:"Alle beginnen mit B! Schau auf den 2. und 3. Buchstaben.",
+  words:["Ball","Banane","Baum","Biene","Blume","Brot"]},
+ {st:"s8",id:"D8d",lvl:2,title:"ABC – alle mit K",type:"ordnen",
+  instr:"Alle beginnen mit K! Schau genau auf den 2. und 3. Buchstaben.",
+  words:["Kamm","Katze","Kino","Kiste","Kopf","Kuh"]}
+];
+/* ---------- Fortschritt (nur in diesem Browser) ---------- */
+function loadDone(){try{return JSON.parse(localStorage.getItem("lt5done")||"{}")}catch(e){return {}}}
+function saveDone(d){try{localStorage.setItem("lt5done",JSON.stringify(d))}catch(e){}}
+let DONE=loadDone();
+
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function el(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+
+/* Text in Tokens zerlegen: {wort|K} = Zielwort mit Kategorie */
+function tokens(text){
+  return text.split(" ").map(piece=>{
+    const m=piece.match(/^([„"(]*)\{([^|}]+)\|(\w)\}(.*)$/);
+    if(m)return{pre:m[1],w:m[2],cat:m[3],post:m[4]};
+    const n=piece.match(/^([„"(]*)([^.,!?:;“"]+)(.*)$/);
+    if(n)return{pre:n[1],w:n[2],cat:null,post:n[3]};
+    return{pre:"",w:piece,cat:null,post:""};
+  });
+}
+const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+
+const PASS=0.8;
+const basisOf=st=>TASKS.filter(t=>t.st===st&&t.lvl===1);
+const basisDone=st=>basisOf(st).every(t=>DONE[t.id]);
+let CUR="s1";
+function updateNav(){
+  document.querySelectorAll(".st").forEach(b=>{const all=TASKS.filter(t=>t.st===b.dataset.id);
+    const n=all.filter(t=>DONE[t.id]).length;b.textContent=STATIONS.find(s=>s.id===b.dataset.id).name+(n===all.length?" ✓":"")})
+}
+function render(stId){
+  CUR=stId;
+  document.querySelectorAll(".st").forEach(b=>b.setAttribute("aria-pressed",b.dataset.id===stId));
+  document.getElementById("stnote").textContent=STATIONS.find(s=>s.id===stId).note;
+  const main=document.getElementById("tasks");main.innerHTML="";
+  const bs=basisOf(stId),nb=bs.filter(t=>DONE[t.id]).length;
+  const info=el("p","progress");
+  info.textContent=basisDone(stId)?"Basis geschafft! Die Profi-Übungen sind freigeschaltet.":"Basis: "+nb+" von "+bs.length+" geschafft. Danach werden die Profi-Übungen freigeschaltet.";
+  main.appendChild(info);
+  TASKS.filter(t=>t.st===stId).forEach(t=>main.appendChild(t.lvl===2&&!basisDone(stId)?lockedTask(t):buildTask(t)));
+  updateNav();
+  try{localStorage.setItem("lt5st",stId)}catch(e){}
+}
+function lockedTask(t){
+  const box=el("section","task locked");
+  const h=el("h2");h.append(el("span",null,t.id+" · "+t.title),el("span","lvl l2","★★ Profi"));
+  box.append(h);
+  const p=el("p","lockmsg");
+  p.innerHTML='<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2.5" fill="var(--mustard)" stroke="var(--ink)" stroke-width="1.8"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="var(--ink)" stroke-width="1.8"/></svg><span>Gesperrt. Schaffe zuerst alle Basis-Übungen dieser Station (mindestens 80 % richtig).</span>';
+  box.append(p);return box;
+}
+
+function buildTask(t){
+  const box=el("section","task");
+  const h=el("h2");h.append(el("span",null,t.id+" · "+t.title));
+  h.append(el("span","lvl "+(t.lvl===1?"l1":"l2"),t.lvl===1?"★ Basis":"★★ Profi"));
+  if(DONE[t.id])h.append(el("span","done","✓ geschafft"));
+  box.append(h,el("p","instr",t.instr));
+  const body=el("div");box.append(body);
+  const bar=el("div","bar");const check=el("button","btn","Prüfen");const again=el("button","btn sec","Nochmal");const res=el("span","result");
+  check.type=again.type="button";bar.append(check,again,res);box.append(bar);
+  let api;
+  const setup=()=>{body.innerHTML="";res.textContent="";res.className="result";check.disabled=false;api=BUILDERS[t.type](t,body)};
+  setup();
+  check.onclick=()=>{const [r,n]=api.check();const ok=r/n>=PASS;
+    res.textContent=r+" von "+n+" richtig"+(r===n?" – super!":ok?" – geschafft!":" – noch nicht geschafft. Versuche es nochmal!");
+    res.className="result "+(ok?"good":"meh");check.disabled=true;
+    if(ok&&!DONE[t.id]){const wasLocked=t.lvl===1&&!basisDone(t.st);DONE[t.id]=true;saveDone(DONE);if(!h.querySelector(".done"))h.append(el("span","done","✓ geschafft"));
+      updateNav();
+      if(wasLocked&&basisDone(t.st)){const m=el("p","unlock","Super! Die Profi-Übungen sind jetzt frei.");const b=el("button","btn","Zu den Profi-Übungen");b.type="button";
+        b.onclick=()=>{render(t.st);const f=document.querySelector(".task .lvl.l2");if(f)f.closest(".task").scrollIntoView({behavior:"smooth",block:"start"})};
+        bar.after(m);m.append(" ",b)}}};
+  again.onclick=setup;
+  return box;
+}
+
+const BUILDERS={
+ klick(t,body){
+  const p=el("div","text");const toks=tokens(t.text);const spans=[];
+  toks.forEach(tk=>{
+    if(tk.pre)p.append(tk.pre);
+    const s=el("span","w",tk.w);s.tabIndex=0;s.setAttribute("role","button");s.dataset.on="0";
+    const tog=()=>{if(s.dataset.locked)return;const on=s.dataset.on==="1"?"0":"1";s.dataset.on=on;s.classList.toggle("m",on==="1");s.textContent=(t.cap&&on==="1")?cap(tk.w):tk.w;s.setAttribute("aria-pressed",on==="1")};
+    s.onclick=tog;s.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();tog()}};
+    p.append(s);if(tk.post)p.append(tk.post);p.append(" ");spans.push([s,tk]);
+  });
+  body.append(p);
+  return{check(){let r=0,n=0;spans.forEach(([s,tk])=>{s.dataset.locked="1";const on=s.dataset.on==="1",isT=tk.cat===t.target;
+    if(isT){n++;if(on){r++;s.classList.add("right")}else{s.classList.add("miss");if(t.cap)s.textContent=cap(tk.w)}}
+    else if(on){s.classList.add("wrong");r--}});return[Math.max(r,0),n]}};
+ },
+ farben(t,body){
+  const lg=el("div","legend");[["N","Nomen"],["V","Verb"],["A","Adjektiv"]].forEach(([c,l])=>{const s=el("span","w "+c,l);s.style.cursor="default";lg.append(s)});body.append(lg);
+  const p=el("div","text");const toks=tokens(t.text);const spans=[];const cyc=["","N","V","A"];
+  toks.forEach(tk=>{
+    if(tk.pre)p.append(tk.pre);
+    const s=el("span","w",tk.w);s.tabIndex=0;s.setAttribute("role","button");s.dataset.c="0";
+    const tog=()=>{if(s.dataset.locked)return;const i=(+s.dataset.c+1)%4;s.dataset.c=i;s.classList.remove("N","V","A");if(cyc[i])s.classList.add(cyc[i])};
+    s.onclick=tog;s.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();tog()}};
+    p.append(s);if(tk.post)p.append(tk.post);p.append(" ");spans.push([s,tk]);
+  });
+  body.append(p);
+  return{check(){let r=0,n=0;spans.forEach(([s,tk])=>{s.dataset.locked="1";const c=cyc[+s.dataset.c];
+    if(tk.cat){n++;if(c===tk.cat){r++;s.classList.add("right")}else{s.classList.add("miss");if(!c)s.classList.add(tk.cat)}}
+    else if(c){s.classList.add("wrong");r--}});return[Math.max(r,0),n]}};
+ },
+ zuordnen(t,body){
+  const wrap=el("div","items");const rows=[];
+  t.items.forEach(([q,a,own])=>{
+    const row=el("div","item");row.append(el("span","q",q));
+    const o=el("div","opts");let sel=null;
+    const opts=own?shuffle(own):t.opts;
+    opts.forEach(x=>{const b=el("button","opt",x);b.type="button";b.setAttribute("aria-pressed","false");
+      b.onclick=()=>{if(row.dataset.locked)return;o.querySelectorAll(".opt").forEach(y=>y.setAttribute("aria-pressed","false"));b.setAttribute("aria-pressed","true");sel=x};o.append(b)});
+    row.append(o);wrap.append(row);rows.push({row,a,get:()=>sel});
+  });
+  body.append(wrap);
+  return{check(){let r=0;rows.forEach(x=>{x.row.dataset.locked="1";if(x.get()===x.a){r++;x.row.classList.add("right")}else{x.row.classList.add("wrong");x.row.append(el("span","sol","Richtig: "+x.a))}});return[r,rows.length]}};
+ },
+ luecke(t,body){
+  const wrap=el("div","items");const rows=[];
+  t.items.forEach(([q,acc],i)=>{
+    const row=el("div","item");const parts=q.split("___");const lab=el("label","q");
+    const inp=el("input","gap");inp.id=t.id+"-"+i;inp.autocomplete="off";inp.spellcheck=false;
+    lab.append(parts[0],inp,parts[1]||"");row.append(lab);wrap.append(row);rows.push({row,inp,acc});
+  });
+  body.append(wrap);
+  return{check(){let r=0;rows.forEach(x=>{x.inp.disabled=true;const v=x.inp.value.trim();
+    if(x.acc.includes(v)){r++;x.row.classList.add("right")}else{x.row.classList.add("wrong");x.row.append(el("span","sol","Richtig: "+x.acc[0]))}});return[r,rows.length]}};
+ },
+ ordnen(t,body){
+  const pool=el("div","pool");const chosen=el("div","chosen");const picked=[];
+  body.append(el("p","hint","Falsch getippt? Tippe unten auf ein Wort, dann geht es zurück."));
+  const make=w=>{const b=el("button","chip",w);b.type="button";
+    b.onclick=()=>{if(body.dataset.locked)return;if(b.parentNode===pool){chosen.append(b);picked.push(w)}else{pool.append(b);picked.splice(picked.indexOf(w),1)}};return b};
+  let sh=shuffle(t.words);if(sh.join()===t.words.join())sh=sh.reverse();
+  sh.forEach(w=>pool.append(make(w)));
+  body.append(pool,el("div",null,"Deine Reihenfolge:"),chosen);
+  return{check(){body.dataset.locked="1";let r=0;[...chosen.children].forEach((b,i)=>{if(b.textContent===t.words[i]){r++;b.classList.add("right")}else b.classList.add("wrong")});
+    if(r<t.words.length)body.append(el("p","sol","Richtig: "+t.words.join(" – ")));return[r,t.words.length]}};
+ }
+};
+
+const nav=document.getElementById("stations");
+STATIONS.forEach(s=>{const b=el("button","st",s.name);b.type="button";b.dataset.id=s.id;b.onclick=()=>render(s.id);nav.append(b)});
+let start="s1";try{start=localStorage.getItem("lt5st")||"s1"}catch(e){}
+const hash=location.hash.slice(1);if(STATIONS.some(s=>s.id===hash))start=hash;
+render(start);
+</script>
+
+</body></html>
